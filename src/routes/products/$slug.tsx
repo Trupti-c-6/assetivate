@@ -15,6 +15,7 @@ import {
 } from "@/components/site/primitives";
 import { getProduct } from "@/data/products";
 import { track } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -45,6 +46,12 @@ export const Route = createFileRoute("/products/$slug")({
             applicationCategory: "BusinessApplication",
             description: product.fullDescription,
             brand: { "@type": "Brand", name: "ASSETIVATE" },
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "INR",
+              description: "Free plan — your first 3 clients free.",
+            },
           }),
         },
       ],
@@ -62,6 +69,7 @@ function ProductDetail() {
 
   return (
     <>
+      {/* ── 1. Hero ─────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-border">
         <div aria-hidden="true" className="grid-backdrop absolute inset-0" />
         <div className="container-page relative py-20 sm:py-28">
@@ -81,72 +89,108 @@ function ProductDetail() {
                 {product.category}
               </p>
             </div>
-            <h1 className="mt-6 text-4xl font-semibold sm:text-5xl">{product.name}</h1>
+            <h1 className="mt-6 text-4xl font-semibold sm:text-5xl">
+              Client onboarding without the chaos.
+            </h1>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{product.oneLiner}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CtaLink
-                to={product.primaryCta.to}
+                href={product.primaryCta.href}
                 onClick={() => track("cta_clicked", { cta: "product_hero", product: product.slug })}
               >
                 {product.primaryCta.label}
               </CtaLink>
-              <CtaLink to="/pricing" variant="outline">
-                Pricing
-              </CtaLink>
+              <a
+                href="#how-it-works"
+                className="inline-flex h-11 items-center justify-center rounded-lg border border-border-strong bg-transparent px-5 text-sm font-medium text-foreground transition-all hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                See How It Works
+              </a>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              Your first 3 clients are free — no card required.
+            </p>
           </div>
         </div>
       </section>
 
+      {/* ── 2. Problem vs Solution ──────────────────────────── */}
       <Section>
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div>
-            <SectionHeading eyebrow="The problem" title={product.problem.title} body={product.problem.body} />
-            <ul className="mt-7 space-y-3">
-              {product.problem.points.map((p) => (
-                <li key={p} className="flex gap-3 text-sm text-muted-foreground">
-                  <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-destructive" />
-                  {p}
+        <SectionHeading
+          eyebrow="Problem vs solution"
+          title="A structured process instead of a scattered one"
+          body={product.problem.body}
+        />
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <p className="eyebrow">Without a structured system</p>
+            <ul className="mt-5 space-y-3">
+              {product.comparison.without.map((item) => (
+                <li key={item} className="flex gap-3 text-sm text-muted-foreground">
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 size-1.5 shrink-0 rounded-full bg-destructive"
+                  />
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
-          <Panel>
-            <p className="eyebrow">The solution</p>
-            <h2 className="mt-3 text-2xl font-semibold">{product.solution.title}</h2>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              {product.solution.body}
-            </p>
-            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-              {product.fullDescription}
-            </p>
-          </Panel>
+          <div className="rounded-2xl border border-primary/40 bg-card p-6 shadow-glow sm:p-8">
+            <p className="eyebrow text-primary">With {product.name}</p>
+            <ul className="mt-5 space-y-3">
+              {product.comparison.withProduct.map((item) => (
+                <li key={item} className="flex gap-3 text-sm text-foreground/90">
+                  <span aria-hidden="true" className="mt-0.5 shrink-0 text-primary">
+                    ✓
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Section>
 
-      <Section className="border-t border-border bg-surface/30">
-        <SectionHeading eyebrow="How it works" title={`${product.name} step by step`} />
+      {/* ── 3. How it works ─────────────────────────────────── */}
+      <Section id="how-it-works" className="scroll-mt-20 border-t border-border bg-surface/30">
+        <SectionHeading
+          eyebrow="How it works"
+          title={`${product.name} step by step`}
+          body={product.solution.body}
+        />
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-start">
           <StepList steps={product.howItWorks} />
           <Panel>
-            <p className="eyebrow">Workflow visualisation</p>
+            <p className="eyebrow">The flow</p>
             <div className="mt-4">
               <WorkflowStrip steps={product.workflow} />
             </div>
-            <div className="mt-8 rounded-xl border border-dashed border-border p-6">
-              <p className="eyebrow">Screenshots &amp; demo</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Product screenshots and an interactive demo will be published here when{" "}
-                {product.name} is available. We do not show mocked interfaces as finished
-                functionality.
-              </p>
+            <div className="mt-8 rounded-xl border border-border bg-background p-6">
+              <p className="eyebrow">The outcome</p>
+              <ul className="mt-4 space-y-2.5">
+                {product.benefits.map((b) => (
+                  <li key={b} className="flex gap-3 text-sm text-muted-foreground">
+                    <span
+                      aria-hidden="true"
+                      className="mt-2 size-1.5 shrink-0 rounded-full bg-primary"
+                    />
+                    {b}
+                  </li>
+                ))}
+              </ul>
             </div>
           </Panel>
         </div>
       </Section>
 
+      {/* ── 4. Verified features ────────────────────────────── */}
       <Section>
-        <SectionHeading eyebrow="Key features" title="What is included" />
+        <SectionHeading
+          eyebrow="Features"
+          title="What is included today"
+          body="Every feature listed here exists and works in the live product."
+        />
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {product.features.map((f) => (
             <FeatureCard key={f.title} {...f} />
@@ -154,37 +198,59 @@ function ProductDetail() {
         </div>
       </Section>
 
-      <Section className="border-t border-border bg-surface/30">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div>
-            <SectionHeading eyebrow="Who it is for" title="Built for teams that onboard repeatedly" />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {product.audience.map((a) => (
-                <FeatureCard key={a.title} {...a} />
-              ))}
-            </div>
+      {/* ── 5. Real product showcase ────────────────────────── */}
+      {product.showcase.length > 0 ? (
+        <Section className="border-t border-border bg-surface/30">
+          <SectionHeading
+            eyebrow="Product showcase"
+            title={`The real ${product.name}, as it works today`}
+            body="These are screenshots of the actual product — not mockups."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {product.showcase.map((shot) => (
+              <figure
+                key={shot.src}
+                className="overflow-hidden rounded-2xl border border-border bg-card"
+              >
+                <img
+                  src={shot.src}
+                  alt={shot.alt}
+                  loading="lazy"
+                  className="w-full border-b border-border"
+                />
+                <figcaption className="p-5">
+                  <p className="text-sm font-semibold">{shot.caption}</p>
+                  {shot.body ? (
+                    <p className="mt-1.5 text-sm text-muted-foreground">{shot.body}</p>
+                  ) : null}
+                </figcaption>
+              </figure>
+            ))}
           </div>
-          <div>
-            <SectionHeading eyebrow="Benefits" title="What changes in practice" />
-            <ul className="mt-8 space-y-3">
-              {product.benefits.map((b) => (
-                <li key={b} className="flex gap-3 text-sm text-muted-foreground">
-                  <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
+        </Section>
+      ) : null}
+
+      {/* ── 6. Who it is for ────────────────────────────────── */}
+      <Section className={cn(product.showcase.length > 0 && "border-t border-border")}>
+        <SectionHeading
+          eyebrow="Who it is for"
+          title="Built for anyone who onboards clients repeatedly"
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {product.audience.map((a) => (
+            <FeatureCard key={a.title} {...a} />
+          ))}
         </div>
       </Section>
 
-      <Section>
+      {/* ── 7. Pricing ──────────────────────────────────────── */}
+      <Section className="border-t border-border bg-surface/30">
         <SectionHeading
           eyebrow="Pricing"
-          title={`${product.name} pricing`}
+          title="Simple pricing — pay only when you grow"
           body={product.pricing.note}
         />
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
           {product.pricing.plans.map((plan) => (
             <div
               key={plan.name}
@@ -195,7 +261,10 @@ function ProductDetail() {
               }
             >
               <p className="eyebrow">{plan.name}</p>
-              <p className="mt-3 text-2xl font-semibold">{plan.price}</p>
+              <p className="mt-3 text-3xl font-semibold">
+                {plan.price}
+                <span className="text-base font-normal text-muted-foreground">{plan.cadence}</span>
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
               <ul className="mt-5 space-y-2 border-t border-border pt-5 text-sm text-muted-foreground">
                 {plan.features.map((f) => (
@@ -209,10 +278,17 @@ function ProductDetail() {
               </ul>
               {plan.note ? <p className="mt-5 text-xs text-muted-foreground">{plan.note}</p> : null}
               <CtaLink
-                to="/contact"
+                href={plan.ctaHref}
+                to={plan.ctaTo}
                 variant={plan.highlighted ? "solid" : "outline"}
                 className="mt-6 w-full"
-                onClick={() => track("cta_clicked", { cta: "product_pricing", plan: plan.name })}
+                onClick={() =>
+                  track("cta_clicked", {
+                    cta: "product_pricing",
+                    plan: plan.name,
+                    product: product.slug,
+                  })
+                }
               >
                 {plan.cta}
               </CtaLink>
@@ -221,18 +297,21 @@ function ProductDetail() {
         </div>
       </Section>
 
-      <Section className="border-t border-border bg-surface/30">
+      {/* ── 8. FAQ ──────────────────────────────────────────── */}
+      <Section>
         <SectionHeading eyebrow="FAQ" title="Questions about this product" />
         <div className="mt-8 max-w-3xl">
           <FaqList items={product.faq} />
         </div>
       </Section>
 
+      {/* ── 9. Final CTA ────────────────────────────────────── */}
       <CtaSection
-        title={`Get access to ${product.name}`}
-        body="Join the early access list and we will contact you when the product is ready for real use — no fake trial, no placeholder checkout."
-        primary={product.primaryCta}
+        title="Ready to make client onboarding simpler?"
+        body="Create a workflow, send one secure link, collect information and files, and review everything in one place."
+        primary={{ label: product.primaryCta.label, href: product.primaryCta.href }}
         secondary={{ label: "Back to products", to: "/products" }}
+        note="Your first 3 clients are free."
       />
     </>
   );

@@ -133,16 +133,20 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
+type CtaTarget = { label: string; to?: string; href?: string };
+
 export function CtaSection({
   title,
   body,
   primary,
   secondary,
+  note,
 }: {
   title: string;
   body: string;
-  primary: { label: string; to: string };
-  secondary?: { label: string; to: string };
+  primary: CtaTarget;
+  secondary?: CtaTarget;
+  note?: string;
 }) {
   return (
     <Section>
@@ -152,13 +156,16 @@ export function CtaSection({
           <h2 className="text-3xl font-semibold sm:text-4xl">{title}</h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground">{body}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CtaLink to={primary.to}>{primary.label}</CtaLink>
+            <CtaLink to={primary.to} href={primary.href}>
+              {primary.label}
+            </CtaLink>
             {secondary ? (
-              <CtaLink to={secondary.to} variant="outline">
+              <CtaLink to={secondary.to} href={secondary.href} variant="outline">
                 {secondary.label}
               </CtaLink>
             ) : null}
           </div>
+          {note ? <p className="mt-5 text-xs text-muted-foreground">{note}</p> : null}
         </div>
       </div>
     </Section>
@@ -167,12 +174,15 @@ export function CtaSection({
 
 export function CtaLink({
   to,
+  href,
   children,
   variant = "solid",
   className,
   onClick,
 }: {
-  to: string;
+  to?: string | undefined;
+  /** External URL — opens in a new tab. */
+  href?: string | undefined;
   children: ReactNode;
   variant?: "solid" | "outline" | "ghost";
   className?: string;
@@ -183,16 +193,20 @@ export function CtaLink({
     outline: "border border-border-strong bg-transparent text-foreground hover:bg-accent",
     ghost: "text-muted-foreground hover:text-foreground",
   } as const;
+  const classes = cn(
+    "inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    styles[variant],
+    className,
+  );
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} className={classes}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <Link
-      to={to}
-      onClick={onClick}
-      className={cn(
-        "inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        styles[variant],
-        className,
-      )}
-    >
+    <Link to={to ?? "/"} onClick={onClick} className={classes}>
       {children}
     </Link>
   );
