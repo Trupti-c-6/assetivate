@@ -180,9 +180,9 @@ export function CtaLink({
   className,
   onClick,
 }: {
-  to?: string;
+  to?: string | undefined;
   /** External URL — opens in a new tab. */
-  href?: string;
+  href?: string | undefined;
   children: ReactNode;
   variant?: "solid" | "outline" | "ghost";
   className?: string;
