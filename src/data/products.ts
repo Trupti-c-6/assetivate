@@ -1,3 +1,13 @@
+// ─── Product application URL ────────────────────────────────────────────────
+// Single source of truth for the live OnboardOS application.
+// All product-related links (signup, login) are derived from this value.
+export const PRODUCT_APP_URL = "https://onboard-os-seven.vercel.app";
+
+export const productAppUrl = (path = "") => `${PRODUCT_APP_URL}${path}`;
+export const PRODUCT_SIGNUP_URL = productAppUrl("/signup");
+export const PRODUCT_LOGIN_URL = productAppUrl("/login");
+
+// ─── Types ──────────────────────────────────────────────────────────────────
 export type ProductStatus = "LIVE" | "COMING SOON" | "IN DEVELOPMENT";
 
 export type PricingPlan = {
@@ -7,8 +17,19 @@ export type PricingPlan = {
   description: string;
   features: string[];
   cta: string;
+  /** External destination (opens in a new tab). */
+  ctaHref?: string;
+  /** Internal route destination. */
+  ctaTo?: string;
   highlighted?: boolean;
   note?: string;
+};
+
+export type ShowcaseItem = {
+  src: string;
+  alt: string;
+  caption: string;
+  body?: string;
 };
 
 export type Product = {
@@ -22,169 +43,260 @@ export type Product = {
   problemSolved: string;
   problem: { title: string; body: string; points: string[] };
   solution: { title: string; body: string };
+  comparison: { without: string[]; withProduct: string[] };
   howItWorks: { step: string; title: string; body: string }[];
   features: { title: string; body: string }[];
   audience: { title: string; body: string }[];
   workflow: string[];
   benefits: string[];
+  /** Real product screenshots. Empty until real captures are provided. */
+  showcase: ShowcaseItem[];
   pricing: { model: string; plans: PricingPlan[]; note: string };
   faq: { q: string; a: string }[];
-  primaryCta: { label: string; to: string };
+  primaryCta: { label: string; href: string };
 };
 
+// ─── Products ───────────────────────────────────────────────────────────────
 export const products: Product[] = [
   {
     slug: "onboardos",
     name: "OnboardOS",
-    category: "Client onboarding & workflow automation",
-    status: "IN DEVELOPMENT",
-    oneLiner: "Client onboarding software that turns email chasing into a structured, trackable workflow.",
+    category: "Client onboarding software",
+    status: "LIVE",
+    oneLiner:
+      "Collect client information and documents through one structured workflow — instead of chasing them across email, chat and spreadsheets.",
     shortDescription:
-      "Build reusable onboarding workflows, send them to clients, and collect structured information and documents through a portal — with autosave, tracking, reminders and review built in.",
+      "Build a reusable onboarding workflow, send each client one secure link, and collect structured information and files in one place. Track progress, review submissions, and request changes to individual items.",
     fullDescription:
-      "OnboardOS is a client onboarding system for service businesses and operations teams. You define an onboarding workflow once — the steps, the information you need, the documents you require — and reuse it for every client. Clients complete onboarding in a guided portal that autosaves progress, so nothing is lost half way through. Your team sees exactly who has completed what, reviews submissions in one place, requests changes when something is missing, and approves when it is ready. Transactional notifications and automated reminders keep the process moving without manual follow-up.",
-    problemSolved: "Manual, email-based client onboarding that is slow, inconsistent and impossible to track.",
+      "OnboardOS is client onboarding software for businesses and professionals who repeatedly need to collect structured information and documents from clients. You create a reusable onboarding workflow with the questions and files you need, then send each client one secure link. Clients complete everything without creating an account. You track progress, review every submission in one place, and request changes to a specific item instead of rejecting the whole submission.",
+    problemSolved:
+      "Client onboarding information scattered across email, WhatsApp, spreadsheets and forms — with repeated follow-ups and no clear view of what is missing.",
     problem: {
-      title: "Onboarding lives in inboxes, and it shows",
-      body: "Most teams onboard clients with a mix of email threads, spreadsheets, PDF forms and reminders someone has to remember to send. It works until volume increases — then information arrives incomplete, documents get lost, and nobody can answer a simple question: where is this client stuck?",
+      title: "Client onboarding is scattered everywhere",
+      body: "Most providers collect onboarding information through a mix of email threads, WhatsApp messages, spreadsheets, Google Forms and documents. Every client becomes a fresh chase — and nobody can say at a glance what is still missing.",
       points: [
-        "The same information is requested two or three times",
-        "Required documents arrive in the wrong format, or never arrive",
-        "No single view of onboarding progress across clients",
-        "Follow-up depends on a person remembering to follow up",
-        "Every team member runs onboarding slightly differently",
+        "Information scattered across email and chat",
+        "Repeated follow-up messages to the same client",
+        "Missing documents discovered late",
+        "A different process for every client",
+        "No clear view of onboarding progress",
       ],
     },
     solution: {
-      title: "One reusable workflow instead of one thread per client",
-      body: "OnboardOS turns your onboarding process into a defined workflow with steps, required fields and required documents. Clients get a portal instead of a checklist buried in an email. Your team gets structured data, completion tracking, review and approval — and reminders that send themselves.",
+      title: "One structured workflow, one secure link",
+      body: "OnboardOS turns your onboarding process into a reusable workflow. Clients get one secure link and complete everything in a guided portal — no account needed. You get structured responses, organised files, progress tracking and a single place to review it all.",
+    },
+    comparison: {
+      without: [
+        "Information scattered across email threads",
+        "Files sent through WhatsApp and chat apps",
+        "Details collected in spreadsheets and forms",
+        "Repeated follow-up messages",
+        "Missing documents discovered late",
+        "A different process for every client",
+        "Hard to know what is still missing",
+      ],
+      withProduct: [
+        "One structured onboarding workflow",
+        "One secure link per client",
+        "Information collected in one place",
+        "Organised file collection",
+        "Clear progress tracking",
+        "Structured review in one place",
+        "Request changes only where needed",
+      ],
     },
     howItWorks: [
       {
         step: "01",
-        title: "Create a workflow template",
-        body: "Define the onboarding steps, the information you need at each step and which documents are required. Save it as a reusable template.",
+        title: "Create your workflow",
+        body: "Build a reusable onboarding process based on the information you need from clients.",
       },
       {
         step: "02",
-        title: "Send it to your client",
-        body: "Invite a client to their onboarding. They receive a link to a guided portal — no account setup friction, no attachments to hunt for.",
+        title: "Add the information you need",
+        body: "Collect structured responses using text fields, selections, and file uploads.",
       },
       {
         step: "03",
-        title: "The client completes onboarding",
-        body: "Clients answer structured questions and upload files step by step. Progress autosaves, so they can stop and return later.",
+        title: "Send your client one secure link",
+        body: "Clients complete the onboarding without needing to create an account.",
       },
       {
         step: "04",
-        title: "Track and review",
-        body: "See completion status per client and per step. Review submissions, request changes on anything incomplete, then approve.",
+        title: "Track progress",
+        body: "See where each client is in the onboarding process.",
       },
       {
         step: "05",
-        title: "Let automation handle follow-up",
-        body: "Transactional notifications confirm each stage, and automated reminders nudge stalled onboardings without manual chasing.",
+        title: "Review and request changes",
+        body: "Review everything in one place and request changes to individual responses when necessary.",
       },
     ],
     features: [
-      { title: "Workflow templates", body: "Define onboarding once and reuse it for every client, with steps in a fixed order." },
-      { title: "Structured information capture", body: "Ask for exactly the fields you need, so data arrives complete and consistent." },
-      { title: "Document collection", body: "Request required files per step and keep them attached to the client record." },
-      { title: "Client portal", body: "A clean guided experience for clients, instead of a long email with instructions." },
-      { title: "Autosave progress", body: "Partial answers are saved as clients work, so nothing is lost between sessions." },
-      { title: "Completion tracking", body: "See where every client is in the process, down to the individual step." },
-      { title: "Review, change requests and approval", body: "Approve complete submissions, or send a specific step back for correction." },
-      { title: "Transactional notifications", body: "Automatic confirmations when onboarding is sent, submitted, approved or returned." },
-      { title: "Automated reminders", body: "Scheduled nudges for incomplete onboardings, so follow-up is not a manual task." },
+      {
+        title: "Reusable workflow templates",
+        body: "Create onboarding workflows once and reuse them for multiple clients.",
+      },
+      {
+        title: "Structured client data collection",
+        body: "Collect short text, long text, single-choice, and multiple-choice responses.",
+      },
+      {
+        title: "Secure client portal",
+        body: "Send clients a secure onboarding link — no account creation required.",
+      },
+      {
+        title: "File collection",
+        body: "Collect documents and files with supported file type and size validation.",
+      },
+      {
+        title: "Centralised review",
+        body: "Review client responses in one structured place.",
+      },
+      {
+        title: "Secure file access",
+        body: "Access submitted files through secure, controlled access.",
+      },
+      {
+        title: "Request changes",
+        body: "Request changes to one specific piece of information instead of rejecting the entire submission.",
+      },
+      {
+        title: "Progress tracking",
+        body: "Track where clients are throughout the onboarding process.",
+      },
+      {
+        title: "Branded provider experience",
+        body: "Customise your organisation details, logo, and brand colour.",
+      },
+      {
+        title: "AI-assisted submission summaries",
+        body: "When configured, assist providers with summarising submitted onboarding information.",
+      },
     ],
     audience: [
-      { title: "Agencies and studios", body: "Onboard new clients with the same information set every time, without a founder in the loop." },
-      { title: "Professional services", body: "Collect documents and structured details for engagements that require a paper trail." },
-      { title: "Operations teams", body: "Standardise an internal intake process and track completion across many requests." },
-      { title: "B2B service providers", body: "Replace onboarding email threads with a portal clients can complete on their own time." },
+      {
+        title: "Agencies",
+        body: "Standardise client onboarding across projects.",
+      },
+      {
+        title: "Consultants",
+        body: "Collect the information you need before engagements begin.",
+      },
+      {
+        title: "Service providers",
+        body: "Create a repeatable process for every customer.",
+      },
+      {
+        title: "Freelancers",
+        body: "Stop chasing information across multiple channels.",
+      },
+      {
+        title: "Growing businesses",
+        body: "Turn repeated onboarding processes into structured workflows.",
+      },
     ],
     workflow: [
-      "Template created",
-      "Onboarding sent",
-      "Client completes steps",
-      "Documents collected",
-      "Submission reviewed",
-      "Changes requested or approved",
+      "Workflow created",
+      "Secure link sent",
+      "Client completes onboarding",
+      "Progress tracked",
+      "Reviewed in one place",
+      "Changes requested where needed",
       "Onboarding complete",
     ],
     benefits: [
-      "Shorter time from signed client to started work",
-      "Complete, structured information on the first pass",
-      "One place to see onboarding status",
-      "Consistent process regardless of who runs it",
-      "Less manual follow-up per client",
+      "Less back-and-forth with clients",
+      "One organised onboarding process",
+      "Stop chasing client information",
+      "Clear visibility into what is missing",
+      "Easier document collection",
+      "Faster, structured review",
     ],
+    showcase: [],
     pricing: {
-      model: "Subscription with a free tier planned",
+      model: "Free plan now, Pro subscription coming soon",
       plans: [
         {
           name: "Free",
-          price: "Not set",
-          cadence: "",
-          description: "Intended for trying OnboardOS on a small number of onboardings.",
-          features: ["Limited active onboardings", "Core workflow builder", "Client portal", "Document collection"],
-          cta: "Join the early access list",
-          note: "Limits not finalised.",
-        },
-        {
-          name: "Team",
-          price: "Not set",
-          cadence: "",
-          description: "Intended for teams running onboarding continuously.",
+          price: "₹0",
+          cadence: "/month",
+          description: "Your first 3 clients free — the complete OnboardOS experience.",
           features: [
-            "Higher onboarding volume",
-            "Multiple workflow templates",
-            "Review, change requests and approvals",
-            "Automated reminders",
+            "Your first 3 clients included",
+            "Full access to the current OnboardOS experience",
+            "No feature restrictions",
+            "No card required",
           ],
-          cta: "Join the early access list",
-          highlighted: true,
-          note: "Monthly and annual options planned.",
+          cta: "Start Free",
+          ctaHref: PRODUCT_SIGNUP_URL,
         },
         {
-          name: "Scale",
-          price: "Not set",
-          cadence: "",
-          description: "Intended for higher volume and additional usage requirements.",
-          features: ["Usage-based allowances", "Additional team members", "Priority support"],
-          cta: "Talk to us",
-          note: "Usage-based pricing planned.",
+          name: "Pro",
+          price: "₹4,999",
+          cadence: "/month",
+          description: "Unlimited client onboarding when you are ready to scale.",
+          features: [
+            "Unlimited clients",
+            "Full access to the OnboardOS experience",
+            "Same product — no feature gates",
+          ],
+          cta: "Join the Pro waitlist",
+          ctaTo: "/contact",
+          highlighted: true,
+          note: "Pro subscriptions are not on sale yet. Paid checkout will open when the subscription system is ready.",
         },
       ],
-      note: "OnboardOS pricing is not finalised. These tiers describe the intended structure, not published prices.",
+      note: "No feature restrictions. Upgrade only when you need to onboard more clients.",
     },
     faq: [
       {
-        q: "Is OnboardOS available today?",
-        a: "Not yet. OnboardOS is in active development. You can join the early access list and we will contact you when it is ready to use.",
+        q: "What is OnboardOS?",
+        a: "OnboardOS helps businesses create structured workflows for collecting information and documents from clients. You build a reusable onboarding workflow, send each client one secure link, and review everything they submit in one place.",
       },
       {
-        q: "Do clients need to create an account?",
-        a: "The client experience is designed around a direct link to their onboarding portal, with progress saved as they go.",
+        q: "Who is OnboardOS for?",
+        a: "Agencies, consultants, service providers, freelancers, and growing businesses — anyone who repeatedly needs to collect structured information and documents from clients.",
       },
       {
-        q: "Can I use more than one onboarding process?",
-        a: "Yes. Workflows are templates, so you can maintain different onboarding processes for different services or client types.",
+        q: "Is OnboardOS available now?",
+        a: "Yes. OnboardOS is live. You can create an account and start using the product today.",
       },
       {
-        q: "What happens if a client stops half way?",
-        a: "Progress autosaves, and automated reminders are designed to nudge incomplete onboardings so they do not stall silently.",
+        q: "Do my clients need to create an account?",
+        a: "No. Clients complete their onboarding through the secure link you send them — no account creation required.",
       },
       {
-        q: "Can I ask a client to fix one step without restarting?",
-        a: "Yes. Reviewers can request changes on a specific step rather than rejecting the whole onboarding.",
+        q: "Can clients upload files?",
+        a: "Yes. Clients can upload documents and files as part of their onboarding, with supported file type and size validation.",
       },
       {
-        q: "How is pricing decided?",
-        a: "Pricing is not published yet. The plan is a free tier for evaluation plus paid subscription tiers based on onboarding volume.",
+        q: "Can I reuse onboarding workflows?",
+        a: "Yes. Workflows are reusable templates — build your onboarding process once and use it for every client.",
+      },
+      {
+        q: "Can I review client responses before approving them?",
+        a: "Yes. Every submission is reviewed in one structured place before you approve it.",
+      },
+      {
+        q: "Can I request changes to a specific response?",
+        a: "Yes. You can request changes to an individual response instead of restarting the entire onboarding process.",
+      },
+      {
+        q: "How many clients can I onboard for free?",
+        a: "Your first 3 clients are free, with full access to the currently available OnboardOS experience.",
+      },
+      {
+        q: "What happens when I need to onboard more clients?",
+        a: "You will be able to upgrade to Pro for unlimited client onboarding at ₹4,999/month. Pro subscriptions are not on sale yet — join the waitlist and we will let you know when checkout opens.",
+      },
+      {
+        q: "How do I get started?",
+        a: "Create your workspace using the Start Free button — it takes you straight to the real OnboardOS signup page.",
       },
     ],
-    primaryCta: { label: "Join the early access list", to: "/contact" },
+    primaryCta: { label: "Start Free", href: PRODUCT_SIGNUP_URL },
   },
 ];
 
