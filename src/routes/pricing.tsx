@@ -8,16 +8,17 @@ import { track } from "@/lib/analytics";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — ASSETIVATE products" },
+      { title: "Pricing — OnboardOS by ASSETIVATE" },
       {
         name: "description",
         content:
-          "How ASSETIVATE prices its software products: per-product plans with free tiers, trials, monthly and annual subscriptions, and usage-based options.",
+          "Start free with your first 3 clients on OnboardOS. Upgrade to Pro for unlimited client onboarding at ₹4,999/month. No feature restrictions.",
       },
-      { property: "og:title", content: "ASSETIVATE pricing" },
+      { property: "og:title", content: "OnboardOS pricing — start free" },
       {
         property: "og:description",
-        content: "Per-product pricing with free tiers, trials, subscriptions and usage-based options.",
+        content:
+          "Your first 3 clients are free. Pro gives unlimited client onboarding at ₹4,999/month.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,30 +27,26 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
 });
 
-const models = [
-  { title: "Free tier", body: "A usable free level for evaluating a product on real work before paying." },
-  { title: "Trial", body: "Time-limited access to paid capability where a free tier does not fit the product." },
-  { title: "Monthly plans", body: "Standard subscription billing, cancellable, priced per product." },
-  { title: "Annual plans", body: "Annual commitment at a lower effective rate where it suits the customer." },
-  { title: "Usage-based", body: "Allowances tied to volume for products where usage varies significantly." },
-];
-
 const faq = [
   {
-    q: "Why are prices not shown yet?",
-    a: "We publish prices when a product is genuinely available to buy. Listing prices for software you cannot yet use is misleading, so the tiers describe structure only.",
+    q: "How many clients can I onboard for free?",
+    a: "Your first 3 clients are free, with full access to the currently available OnboardOS experience. No card required.",
+  },
+  {
+    q: "Are features restricted on the Free plan?",
+    a: "No. The Free plan is the complete product. The only difference with Pro is client capacity.",
+  },
+  {
+    q: "Can I subscribe to Pro today?",
+    a: "Not yet. Paid subscription checkout is not available. You can register interest and we will contact you when Pro subscriptions open.",
+  },
+  {
+    q: "What happens when I reach 3 clients?",
+    a: "You will be able to upgrade to Pro for unlimited client onboarding at ₹4,999/month once subscriptions are available.",
   },
   {
     q: "Is pricing the same across all ASSETIVATE products?",
-    a: "No. Each product is priced independently based on the value and usage of that product. There is no company-wide bundle at this stage.",
-  },
-  {
-    q: "Is payment connected today?",
-    a: "No. Checkout and subscription billing are not connected. The site has a defined integration point so payments can be enabled per product when a product is ready to sell.",
-  },
-  {
-    q: "What happens after a trial ends?",
-    a: "Where a product offers a trial, you will be able to move to a paid plan or continue on a free tier where the product provides one. No automatic charges without a confirmed subscription.",
+    a: "No. Each product in the portfolio is priced independently. There is no company-wide bundle at this stage.",
   },
 ];
 
@@ -63,92 +60,76 @@ function PricingPage() {
       <Section className="border-b border-border pb-14">
         <SectionHeading
           eyebrow="Pricing"
-          title="Priced per product, not per company"
-          body="ASSETIVATE is a portfolio. Each product carries its own pricing so the company is never locked into one product's economics."
+          title="Start free with your first 3 clients"
+          body="Upgrade to Pro for unlimited client onboarding when you're ready to scale. No feature restrictions — upgrade only when you need to onboard more clients."
         />
       </Section>
 
-      <Section>
-        <SectionHeading eyebrow="Pricing models" title="What the architecture supports" />
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {models.map((m) => (
-            <div key={m.title} className="rounded-xl border border-border bg-card p-6">
-              <h3 className="text-base font-semibold">{m.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.body}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {products.map((product) => (
+        <Section key={product.slug}>
+          <SectionHeading eyebrow={product.name} title="Two plans, one difference: client capacity" />
 
-      <Section className="border-t border-border bg-surface/30">
-        <SectionHeading eyebrow="By product" title="Current product pricing" />
-        <div className="mt-10 space-y-14">
-          {products.map((product) => (
-            <div key={product.slug}>
-              <div className="flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-semibold">{product.name}</h3>
-                  <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{product.pricing.note}</p>
-                </div>
-                <CtaLink to="/products/onboardos" variant="outline">
-                  Product details
+          <div className="mx-auto mt-10 grid max-w-3xl gap-5 sm:grid-cols-2">
+            {product.pricing.plans.map((plan) => (
+              <div
+                key={plan.name}
+                className={
+                  plan.highlighted
+                    ? "relative flex flex-col rounded-2xl border border-primary/40 bg-card p-6 shadow-glow sm:p-8"
+                    : "relative flex flex-col rounded-2xl border border-border bg-card p-6 sm:p-8"
+                }
+              >
+                {plan.highlighted ? (
+                  <span className="absolute right-6 top-6 rounded-full border border-border-strong bg-muted px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+                    Coming soon
+                  </span>
+                ) : null}
+                <p className="eyebrow">{plan.name}</p>
+                <p className="mt-3 text-4xl font-semibold">
+                  {plan.price}
+                  <span className="text-base font-normal text-muted-foreground">
+                    {plan.cadence}
+                  </span>
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground">{plan.description}</p>
+                <ul className="mt-6 space-y-2.5 border-t border-border pt-6 text-sm text-muted-foreground">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <span aria-hidden="true" className="text-primary">
+                        ✓
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex-1" />
+                {plan.note ? (
+                  <p className="mt-6 text-xs leading-relaxed text-muted-foreground">{plan.note}</p>
+                ) : null}
+                <CtaLink
+                  href={plan.ctaHref}
+                  to={plan.ctaTo}
+                  variant={plan.highlighted ? "outline" : "solid"}
+                  className="mt-6 w-full"
+                  onClick={() =>
+                    track("cta_clicked", {
+                      cta: "pricing_plan",
+                      plan: plan.name,
+                      product: product.slug,
+                    })
+                  }
+                >
+                  {plan.cta}
                 </CtaLink>
               </div>
-              <div className="mt-6 grid gap-4 lg:grid-cols-3">
-                {product.pricing.plans.map((plan) => (
-                  <div
-                    key={plan.name}
-                    className={
-                      plan.highlighted
-                        ? "rounded-2xl border border-primary/40 bg-card p-6 shadow-glow"
-                        : "rounded-2xl border border-border bg-card p-6"
-                    }
-                  >
-                    <p className="eyebrow">{plan.name}</p>
-                    <p className="mt-3 text-2xl font-semibold">{plan.price}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
-                    <ul className="mt-5 space-y-2 border-t border-border pt-5 text-sm text-muted-foreground">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex gap-2.5">
-                          <span aria-hidden="true" className="text-primary">
-                            ✓
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    {plan.note ? (
-                      <p className="mt-5 text-xs text-muted-foreground">{plan.note}</p>
-                    ) : null}
-                    <CtaLink
-                      to="/contact"
-                      variant={plan.highlighted ? "solid" : "outline"}
-                      className="mt-6 w-full"
-                      onClick={() =>
-                        track("cta_clicked", { cta: "pricing_plan", plan: plan.name, product: product.slug })
-                      }
-                    >
-                      {plan.cta}
-                    </CtaLink>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
 
-      <Section>
-        <div className="rounded-2xl border border-dashed border-border p-8">
-          <p className="eyebrow">Payment configuration</p>
-          <h2 className="mt-3 text-2xl font-semibold">Billing is not connected yet</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            There is no checkout on this site, and no fake payment flow. When a product is ready to
-            sell, a payment provider and per-product plans must be configured, and the subscription
-            path becomes: product → signup → trial → subscription → payment → account → product usage.
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-muted-foreground">
+            {product.pricing.note}
           </p>
-        </div>
-      </Section>
+        </Section>
+      ))}
 
       <Section className="border-t border-border bg-surface/30">
         <SectionHeading eyebrow="FAQ" title="Pricing questions" />
@@ -158,10 +139,14 @@ function PricingPage() {
       </Section>
 
       <CtaSection
-        title="Want early pricing when it is set?"
-        body="Tell us which product you are interested in and we will share pricing before it is published."
-        primary={{ label: "Contact us", to: "/contact" }}
-        secondary={{ label: "Explore products", to: "/products" }}
+        title="Start onboarding clients today"
+        body="Create your workspace, build a workflow, and send your first client a secure onboarding link."
+        primary={{
+          label: products[0]!.primaryCta.label,
+          href: products[0]!.primaryCta.href,
+        }}
+        secondary={{ label: "Explore OnboardOS", to: "/products/onboardos" }}
+        note="Your first 3 clients are free."
       />
     </>
   );
