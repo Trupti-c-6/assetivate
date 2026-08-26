@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { CtaSection, Section, SectionHeading } from "@/components/site/primitives";
 import { PlannedCard, ProductCard } from "@/components/site/ProductCard";
-import { portfolioThemes, products } from "@/data/products";
+import { flagshipProduct, portfolioThemes, products } from "@/data/products";
 
 export const Route = createFileRoute("/products/")({
   head: () => ({
@@ -33,7 +33,7 @@ function ProductsPage() {
         <SectionHeading
           eyebrow="Product portfolio"
           title="Software products built to be used every day"
-          body="Each product solves one operational problem. Status is stated honestly: live products are ready to use, everything else is labelled."
+          body="Each product solves one operational problem. OnboardOS, our client onboarding software, is available now."
         />
       </Section>
 
@@ -62,10 +62,11 @@ function ProductsPage() {
       </Section>
 
       <CtaSection
-        title="Looking for something specific?"
-        body="If a process in your business is repetitive, manual and painful, tell us about it. It may already be on our roadmap."
-        primary={{ label: "Contact us", to: "/contact" }}
+        title="Start with OnboardOS"
+        body="Create a reusable onboarding workflow, send clients one secure link, and review everything in one place."
+        primary={{ label: flagshipProduct.primaryCta.label, href: flagshipProduct.primaryCta.href }}
         secondary={{ label: "See pricing", to: "/pricing" }}
+        note="Your first 3 clients are free."
       />
     </>
   );

@@ -304,10 +304,11 @@ function Home() {
       </Section>
 
       <CtaSection
-        title="Start with the portfolio"
-        body="See what ASSETIVATE has built, what is coming, and which product fits the process you want to fix."
-        primary={{ label: "Explore Products", to: "/products" }}
-        secondary={{ label: "Contact us", to: "/contact" }}
+        title="Ready to make client onboarding simpler?"
+        body="Create a workflow, send one secure link, collect information and files, and review everything in one place with OnboardOS."
+        primary={{ label: "Start Free", href: flagship.primaryCta.href }}
+        secondary={{ label: "Explore Products", to: "/products" }}
+        note="Your first 3 clients are free."
       />
     </>
   );
