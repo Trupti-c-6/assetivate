@@ -84,6 +84,18 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <a
+            href={PRODUCT_SIGNUP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              setOpen(false);
+              track("cta_clicked", { cta: "mobile_start_free" });
+            }}
+            className="mt-3 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground"
+          >
+            Start Free
+          </a>
         </nav>
       </div>
     </header>
