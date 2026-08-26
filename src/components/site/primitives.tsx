@@ -49,6 +49,7 @@ export function StatusBadge({ status }: { status: ProductStatus }) {
       : status === "IN DEVELOPMENT"
         ? "border-warning/40 bg-warning/10 text-warning"
         : "border-border-strong bg-muted text-muted-foreground";
+  const label = status === "LIVE" ? "Available now" : status;
   return (
     <span
       className={cn(
@@ -57,7 +58,7 @@ export function StatusBadge({ status }: { status: ProductStatus }) {
       )}
     >
       <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
-      {status}
+      {label}
     </span>
   );
 }

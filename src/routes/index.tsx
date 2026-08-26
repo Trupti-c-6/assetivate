@@ -114,22 +114,28 @@ function Home() {
               every week — onboarding, intake, tracking and follow-up.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <CtaLink to="/products" onClick={() => track("cta_clicked", { cta: "hero_primary" })}>
-                Explore Products
+              <CtaLink
+                href={flagship.primaryCta.href}
+                onClick={() => track("cta_clicked", { cta: "hero_primary_start_free" })}
+              >
+                Start Free with {flagship.name}
               </CtaLink>
               <CtaLink
                 to="/products/onboardos"
                 variant="outline"
                 onClick={() => track("cta_clicked", { cta: "hero_secondary" })}
               >
-                See How It Works
+                Explore OnboardOS
               </CtaLink>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              OnboardOS is live. Your first 3 clients are free.
+            </p>
             <dl className="mt-14 grid gap-6 border-t border-border pt-8 sm:grid-cols-3">
               {[
                 ["Focus", "Business workflow software"],
                 ["Model", "Product-led SaaS portfolio"],
-                ["Current products", `${products.length} in the portfolio`],
+                ["Current products", `${products.length} live in the portfolio`],
               ].map(([k, v]) => (
                 <div key={k}>
                   <dt className="eyebrow">{k}</dt>
@@ -158,7 +164,7 @@ function Home() {
         <SectionHeading
           eyebrow="Product portfolio"
           title="The portfolio today"
-          body="Every product has a clear problem, a category and an honest status. Products are marked live only when they are genuinely ready to use."
+          body="Every product has a clear problem, a category and an honest status. Our first product, OnboardOS, is available now."
         />
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
@@ -186,15 +192,20 @@ function Home() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CtaLink
-                to="/products/onboardos"
-                onClick={() => track("cta_clicked", { cta: "home_flagship", product: flagship.slug })}
+                href={flagship.primaryCta.href}
+                onClick={() =>
+                  track("cta_clicked", { cta: "home_flagship_start_free", product: flagship.slug })
+                }
               >
-                Explore {flagship.name}
+                Start Free
               </CtaLink>
-              <CtaLink to="/pricing" variant="outline">
-                See pricing structure
+              <CtaLink to="/products/onboardos" variant="outline">
+                See How It Works
               </CtaLink>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              Free for your first 3 clients. Pro (₹4,999/month, unlimited clients) is coming soon.
+            </p>
           </div>
           <Panel>
             <p className="eyebrow">Workflow</p>
@@ -293,10 +304,11 @@ function Home() {
       </Section>
 
       <CtaSection
-        title="Start with the portfolio"
-        body="See what ASSETIVATE has built, what is coming, and which product fits the process you want to fix."
-        primary={{ label: "Explore Products", to: "/products" }}
-        secondary={{ label: "Contact us", to: "/contact" }}
+        title="Ready to make client onboarding simpler?"
+        body="Create a workflow, send one secure link, collect information and files, and review everything in one place with OnboardOS."
+        primary={{ label: "Start Free", href: flagship.primaryCta.href }}
+        secondary={{ label: "Explore Products", to: "/products" }}
+        note="Your first 3 clients are free."
       />
     </>
   );

@@ -99,8 +99,13 @@ function ContactPage() {
                   className="mt-2 h-11 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   {products.map((p) => (
-                    <option key={p.slug} value={p.slug}>
-                      Early access — {p.name}
+                    <option key={p.slug} value={`${p.slug}-pro`}>
+                      {p.name} Pro waitlist
+                    </option>
+                  ))}
+                  {products.map((p) => (
+                    <option key={`${p.slug}-support`} value={`${p.slug}-support`}>
+                      {p.name} question
                     </option>
                   ))}
                   <option value="process">A process I want to automate</option>

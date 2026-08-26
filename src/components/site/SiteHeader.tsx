@@ -3,8 +3,10 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { track } from "@/lib/analytics";
+import { PRODUCT_SIGNUP_URL } from "@/data/products";
 
 const nav = [
+  { label: "OnboardOS", to: "/products/onboardos" },
   { label: "Products", to: "/products" },
   { label: "Pricing", to: "/pricing" },
   { label: "About", to: "/about" },
@@ -42,13 +44,15 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden md:block">
-          <Link
-            to="/products"
-            onClick={() => track("cta_clicked", { cta: "header_explore_products" })}
+          <a
+            href={PRODUCT_SIGNUP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("cta_clicked", { cta: "header_start_free" })}
             className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Explore Products
-          </Link>
+            Start Free
+          </a>
         </div>
 
         <button
@@ -80,6 +84,18 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <a
+            href={PRODUCT_SIGNUP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              setOpen(false);
+              track("cta_clicked", { cta: "mobile_start_free" });
+            }}
+            className="mt-3 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground"
+          >
+            Start Free
+          </a>
         </nav>
       </div>
     </header>
