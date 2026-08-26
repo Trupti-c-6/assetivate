@@ -192,15 +192,20 @@ function Home() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CtaLink
-                to="/products/onboardos"
-                onClick={() => track("cta_clicked", { cta: "home_flagship", product: flagship.slug })}
+                href={flagship.primaryCta.href}
+                onClick={() =>
+                  track("cta_clicked", { cta: "home_flagship_start_free", product: flagship.slug })
+                }
               >
-                Explore {flagship.name}
+                Start Free
               </CtaLink>
-              <CtaLink to="/pricing" variant="outline">
-                See pricing structure
+              <CtaLink to="/products/onboardos" variant="outline">
+                See How It Works
               </CtaLink>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              Free for your first 3 clients. Pro (₹4,999/month, unlimited clients) is coming soon.
+            </p>
           </div>
           <Panel>
             <p className="eyebrow">Workflow</p>
