@@ -106,8 +106,14 @@ export function SiteFooter() {
 
       <div className="border-t border-border">
         <div className="container-page flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} ASSETIVATE. All rights reserved.</p>
-          <p>Company registration and address details to be confirmed.</p>
+          <p>
+            © {new Date().getFullYear()} ASSETIVATE · Founded and built by Trupti Chimmalagi
+          </p>
+          <p>
+            <a href="mailto:acendra0306@gmail.com" className="hover:text-foreground">
+              acendra0306@gmail.com
+            </a>
+          </p>
         </div>
       </div>
     </footer>
