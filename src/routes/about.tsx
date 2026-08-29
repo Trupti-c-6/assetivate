@@ -115,19 +115,37 @@ function AboutPage() {
       </Section>
 
       <Section className="border-t border-border bg-surface/30">
-        <div className="rounded-2xl border border-dashed border-border p-8">
-          <p className="eyebrow">Company information</p>
-          <h2 className="mt-3 text-2xl font-semibold">Legal and registration details</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Registered company name, registration number, registered address and tax details are to be
-            confirmed and will be published here. We do not publish company details we cannot verify.
-          </p>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Panel>
+            <p className="eyebrow">Founder</p>
+            <h2 className="mt-3 text-2xl font-semibold">Founded and built by Trupti Chimmalagi</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              ASSETIVATE was founded and built by Trupti Chimmalagi with the goal of creating
+              practical software that simplifies repeated business processes. OnboardOS, the first
+              product in the portfolio, is live today.
+            </p>
+            <a
+              href="mailto:acendra0306@gmail.com"
+              className="mt-6 inline-flex font-mono text-sm text-primary hover:underline"
+            >
+              acendra0306@gmail.com
+            </a>
+          </Panel>
+          <div className="rounded-2xl border border-dashed border-border p-8">
+            <p className="eyebrow">Company information</p>
+            <h2 className="mt-3 text-2xl font-semibold">Legal and registration details</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              Registered entity name, registration number, registered address and tax details are to
+              be confirmed and will be published here. We do not publish company details we cannot
+              verify.
+            </p>
+          </div>
         </div>
       </Section>
 
       <CtaSection
         title="See what we have built"
-        body="The portfolio is the clearest statement of what ASSETIVATE does."
+        body="OnboardOS is live today — the clearest statement of what ASSETIVATE does."
         primary={{ label: "Explore Products", to: "/products" }}
         secondary={{ label: "Contact us", to: "/contact" }}
       />

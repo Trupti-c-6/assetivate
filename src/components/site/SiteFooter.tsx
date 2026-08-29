@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { products } from "@/data/products";
+import { products, PRODUCT_LOGIN_URL, PRODUCT_SIGNUP_URL } from "@/data/products";
 
 const company = [
   { label: "About ASSETIVATE", to: "/about" },
@@ -48,6 +48,26 @@ export function SiteFooter() {
               <Link to="/pricing" className="text-muted-foreground hover:text-foreground">
                 Pricing
               </Link>
+            </li>
+            <li>
+              <a
+                href={PRODUCT_SIGNUP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Start Free
+              </a>
+            </li>
+            <li>
+              <a
+                href={PRODUCT_LOGIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Sign in to OnboardOS
+              </a>
             </li>
           </ul>
         </nav>
