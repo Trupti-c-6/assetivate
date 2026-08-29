@@ -32,7 +32,7 @@ const sections = [
   },
   {
     title: "3. How we use information",
-    body: "We use the information you submit to respond to your enquiry, to contact you about early access where you requested it, and to keep a record of the correspondence. We do not sell personal data.",
+    body: "We use the information you submit to respond to your enquiry, to contact you about OnboardOS Pro access where you requested it, and to keep a record of the correspondence. We do not sell personal data.",
   },
   {
     title: "4. Analytics and cookies",
