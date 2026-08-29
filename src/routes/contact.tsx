@@ -2,22 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Panel, Section, SectionHeading } from "@/components/site/primitives";
-import { products } from "@/data/products";
+import { products, PRODUCT_SIGNUP_URL } from "@/data/products";
 import { track } from "@/lib/analytics";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact ASSETIVATE — product enquiries & early access" },
+      { title: "Contact ASSETIVATE — OnboardOS questions & Pro access" },
       {
         name: "description",
         content:
-          "Contact ASSETIVATE about products, early access to OnboardOS, or an operational process you want to automate.",
+          "Contact ASSETIVATE about OnboardOS, Pro access for unlimited client onboarding, or a process you want to turn into software. Email acendra0306@gmail.com.",
       },
       { property: "og:title", content: "Contact ASSETIVATE" },
       {
         property: "og:description",
-        content: "Product enquiries, early access requests and partnership questions.",
+        content: "OnboardOS questions, Pro access enquiries and partnership questions.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,7 +47,7 @@ function ContactPage() {
     track("cta_clicked", { cta: "contact_form_submit" });
     setStatus("info");
     setMessage(
-      "This form is not connected to a mailbox or backend yet, so nothing was sent. Please email us directly using the address below while we finish setup.",
+      "This form does not send messages yet, so nothing was submitted. Please email acendra0306@gmail.com directly — that address is checked and is the guaranteed way to reach us.",
     );
   }
 
@@ -57,7 +57,7 @@ function ContactPage() {
         <SectionHeading
           eyebrow="Contact"
           title="Talk to us about a process worth automating"
-          body="Product questions, early access requests, or a repetitive operation you would like to see turned into software."
+          body="Questions about OnboardOS, Pro access for unlimited client onboarding, or a repetitive operation you would like to see turned into software."
         />
       </Section>
 
@@ -148,18 +148,41 @@ function ContactPage() {
           <div className="space-y-4">
             <Panel>
               <p className="eyebrow">Direct contact</p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Email address to be confirmed — this is a placeholder until the company mailbox is
-                configured.
+              <p className="mt-4 text-base font-semibold">Trupti Chimmalagi</p>
+              <p className="mt-1 text-sm text-muted-foreground">Founder, ASSETIVATE</p>
+              <a
+                href="mailto:acendra0306@gmail.com"
+                onClick={() => track("cta_clicked", { cta: "contact_email" })}
+                className="mt-4 inline-flex font-mono text-sm text-primary hover:underline"
+              >
+                acendra0306@gmail.com
+              </a>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Email is the fastest and most reliable way to reach us — including enquiries about
+                OnboardOS Pro access.
               </p>
-              <p className="mt-4 font-mono text-sm">hello@assetivate.example</p>
+            </Panel>
+            <Panel>
+              <p className="eyebrow">OnboardOS</p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                OnboardOS is live. You can create a workspace and onboard your first 3 clients for
+                free without contacting us.
+              </p>
+              <a
+                href={PRODUCT_SIGNUP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("cta_clicked", { cta: "contact_start_free" })}
+                className="mt-4 inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Start Free
+              </a>
             </Panel>
             <Panel>
               <p className="eyebrow">Company details</p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>Registered name: to be confirmed</li>
-                <li>Registration number: to be confirmed</li>
-                <li>Address: to be confirmed</li>
+                <li>Founder and owner: Trupti Chimmalagi</li>
+                <li>Registered entity details: to be confirmed</li>
               </ul>
             </Panel>
             <Panel>

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { track } from "@/lib/analytics";
-import { PRODUCT_SIGNUP_URL } from "@/data/products";
+import { PRODUCT_LOGIN_URL, PRODUCT_SIGNUP_URL } from "@/data/products";
 
 const nav = [
   { label: "OnboardOS", to: "/products/onboardos" },
@@ -43,7 +43,16 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-2 md:flex">
+          <a
+            href={PRODUCT_LOGIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("cta_clicked", { cta: "header_sign_in" })}
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Sign in
+          </a>
           <a
             href={PRODUCT_SIGNUP_URL}
             target="_blank"

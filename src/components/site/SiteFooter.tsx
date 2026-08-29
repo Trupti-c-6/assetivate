@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { products } from "@/data/products";
+import { products, PRODUCT_LOGIN_URL, PRODUCT_SIGNUP_URL } from "@/data/products";
 
 const company = [
   { label: "About ASSETIVATE", to: "/about" },
@@ -49,6 +49,26 @@ export function SiteFooter() {
                 Pricing
               </Link>
             </li>
+            <li>
+              <a
+                href={PRODUCT_SIGNUP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Start Free
+              </a>
+            </li>
+            <li>
+              <a
+                href={PRODUCT_LOGIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Sign in to OnboardOS
+              </a>
+            </li>
           </ul>
         </nav>
 
@@ -86,8 +106,14 @@ export function SiteFooter() {
 
       <div className="border-t border-border">
         <div className="container-page flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} ASSETIVATE. All rights reserved.</p>
-          <p>Company registration and address details to be confirmed.</p>
+          <p>
+            © {new Date().getFullYear()} ASSETIVATE · Founded and built by Trupti Chimmalagi
+          </p>
+          <p>
+            <a href="mailto:acendra0306@gmail.com" className="hover:text-foreground">
+              acendra0306@gmail.com
+            </a>
+          </p>
         </div>
       </div>
     </footer>

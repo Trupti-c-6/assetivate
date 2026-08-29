@@ -216,7 +216,7 @@ export const products: Product[] = [
     ],
     showcase: [],
     pricing: {
-      model: "Free plan now, Pro subscription coming soon",
+      model: "Client-based pricing: free for your first 3 clients, Pro for unlimited",
       plans: [
         {
           name: "Free",
@@ -242,10 +242,10 @@ export const products: Product[] = [
             "Full access to the OnboardOS experience",
             "Same product — no feature gates",
           ],
-          cta: "Join the Pro waitlist",
+          cta: "Contact Us About Pro",
           ctaTo: "/contact",
           highlighted: true,
-          note: "Pro subscriptions are not on sale yet. Paid checkout will open when the subscription system is ready.",
+          note: "In-app payment checkout is not implemented yet. Contact us and we will set up your Pro access directly.",
         },
       ],
       note: "No feature restrictions. Upgrade only when you need to onboard more clients.",
@@ -289,7 +289,7 @@ export const products: Product[] = [
       },
       {
         q: "What happens when I need to onboard more clients?",
-        a: "You will be able to upgrade to Pro for unlimited client onboarding at ₹4,999/month. Pro subscriptions are not on sale yet — join the waitlist and we will let you know when checkout opens.",
+        a: "Upgrade to Pro for unlimited client onboarding at ₹4,999/month. Automated in-app checkout is not implemented yet, so contact us and we will arrange your Pro access.",
       },
       {
         q: "How do I get started?",
