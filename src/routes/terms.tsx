@@ -38,7 +38,7 @@ const sections = [
     body: "Where a product requires an account, you are responsible for the accuracy of the details you provide and for keeping your access credentials secure.",
   },
   {
-    title: "5. Subscriptions and payment",
+    title: "5. Paid plans and payment",
     body: "No payment processing happens on this website. Paid access to OnboardOS is purchased inside the OnboardOS application through secure Razorpay checkout, and the applicable plan terms are shown at the point of purchase. Pro grants a one-month access period and does not renew automatically.",
   },
   {

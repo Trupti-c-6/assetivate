@@ -57,7 +57,7 @@ const builds = [
   },
   {
     title: "Operational automation",
-    body: "Reminders, notifications and status tracking that remove the manual follow-up work around a process.",
+    body: "Status tracking and structured review that remove the manual follow-up work around a process.",
   },
   {
     title: "Structured data capture",
