@@ -12,13 +12,13 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "Start free with your first 3 clients on OnboardOS. Upgrade to Pro for unlimited client onboarding at ₹4,999/month. No feature restrictions.",
+          "Start free with your first 3 client onboardings on OnboardOS. Pro is ₹4,999 for one month of unlimited onboardings. No feature restrictions.",
       },
       { property: "og:title", content: "OnboardOS pricing — start free" },
       {
         property: "og:description",
         content:
-          "Your first 3 clients are free. Pro gives unlimited client onboarding at ₹4,999/month.",
+          "Your first 3 client onboardings are free. Pro is ₹4,999 for one month of unlimited onboardings.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,19 +30,23 @@ export const Route = createFileRoute("/pricing")({
 const faq = [
   {
     q: "How many clients can I onboard for free?",
-    a: "Your first 3 clients are free, with full access to the currently available OnboardOS experience. No card required.",
+    a: "Your first 3 client onboardings are free, with full access to the currently available OnboardOS experience. No card required.",
   },
   {
     q: "Are features restricted on the Free plan?",
     a: "No. The Free plan is the complete product. The only difference with Pro is client capacity.",
   },
   {
-    q: "Can I subscribe to Pro today?",
-    a: "Not yet. Paid subscription checkout is not available. You can register interest and we will contact you when Pro subscriptions open.",
+    q: "How do I move to Pro?",
+    a: "Sign up first, then complete secure Razorpay checkout inside OnboardOS. Pro access is activated after successful payment verification.",
   },
   {
-    q: "What happens when I reach 3 clients?",
-    a: "You will be able to upgrade to Pro for unlimited client onboarding at ₹4,999/month once subscriptions are available.",
+    q: "Does Pro auto-renew?",
+    a: "No. Pro gives you 1 month of access. When the period ends, you reactivate it by completing payment again.",
+  },
+  {
+    q: "What happens after my first 3 onboardings?",
+    a: "Move to Pro for ₹4,999 to get unlimited client onboardings for a month of access.",
   },
   {
     q: "Is pricing the same across all ASSETIVATE products?",
@@ -60,14 +64,14 @@ function PricingPage() {
       <Section className="border-b border-border pb-14">
         <SectionHeading
           eyebrow="Pricing"
-          title="Start free with your first 3 clients"
-          body="Upgrade to Pro for unlimited client onboarding when you're ready to scale. No feature restrictions — upgrade only when you need to onboard more clients."
+          title="Start free with your first 3 client onboardings"
+          body="Move to Pro for unlimited client onboardings when you're ready to scale. No feature restrictions — Pro only lifts the client limit."
         />
       </Section>
 
       {products.map((product) => (
         <Section key={product.slug}>
-          <SectionHeading eyebrow={product.name} title="Two plans, one difference: client capacity" />
+          <SectionHeading eyebrow={product.name} title="Two plans, one difference: onboarding capacity" />
 
           <div className="mx-auto mt-10 grid max-w-3xl gap-5 sm:grid-cols-2">
             {product.pricing.plans.map((plan) => (
@@ -79,11 +83,6 @@ function PricingPage() {
                     : "relative flex flex-col rounded-2xl border border-border bg-card p-6 sm:p-8"
                 }
               >
-                {plan.highlighted ? (
-                  <span className="absolute right-6 top-6 rounded-full border border-border-strong bg-muted px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
-                    Coming soon
-                  </span>
-                ) : null}
                 <p className="eyebrow">{plan.name}</p>
                 <p className="mt-3 text-4xl font-semibold">
                   {plan.price}

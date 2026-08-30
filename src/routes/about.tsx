@@ -66,7 +66,7 @@ function AboutPage() {
               <p className="eyebrow">Model</p>
               <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">
                 ASSETIVATE → product portfolio → individual product → free access or trial →
-                activation → subscription → recurring revenue → product growth
+                activation → paid access → reinvestment → product growth
               </p>
             </div>
           </div>

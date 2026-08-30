@@ -57,7 +57,7 @@ const builds = [
   },
   {
     title: "Operational automation",
-    body: "Reminders, notifications and status tracking that remove the manual follow-up work around a process.",
+    body: "Status tracking and structured review that remove the manual follow-up work around a process.",
   },
   {
     title: "Structured data capture",
@@ -204,7 +204,7 @@ function Home() {
               </CtaLink>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
-              Your first 3 client onboardings are free. Pro is ₹4,999/month for unlimited clients.
+              Your first 3 client onboardings are free. Pro is ₹4,999 for one month of unlimited onboardings.
             </p>
           </div>
           <Panel>

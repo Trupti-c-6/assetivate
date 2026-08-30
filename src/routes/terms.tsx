@@ -9,7 +9,7 @@ export const Route = createFileRoute("/terms")({
       {
         name: "description",
         content:
-          "The terms that govern use of the ASSETIVATE website and, where applicable, its software products and subscriptions.",
+          "The terms that govern use of the ASSETIVATE website and, where applicable, its software products and paid plans.",
       },
       { property: "og:title", content: "ASSETIVATE Terms of Service" },
       { property: "og:description", content: "Terms governing use of the ASSETIVATE website and products." },
@@ -38,8 +38,8 @@ const sections = [
     body: "Where a product requires an account, you are responsible for the accuracy of the details you provide and for keeping your access credentials secure.",
   },
   {
-    title: "5. Subscriptions and payment",
-    body: "No payment processing is active on this website at present. When subscriptions become available, plan terms, billing periods, renewal and cancellation conditions will be stated at the point of purchase and in the product-specific terms.",
+    title: "5. Paid plans and payment",
+    body: "No payment processing happens on this website. Paid access to OnboardOS is purchased inside the OnboardOS application through secure Razorpay checkout, and the applicable plan terms are shown at the point of purchase. Pro grants a one-month access period and does not renew automatically.",
   },
   {
     title: "6. Acceptable use",

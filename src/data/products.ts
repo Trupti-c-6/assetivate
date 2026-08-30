@@ -7,6 +7,9 @@ export const productAppUrl = (path = "") => `${PRODUCT_APP_URL}${path}`;
 export const PRODUCT_SIGNUP_URL = productAppUrl("/signup");
 export const PRODUCT_LOGIN_URL = productAppUrl("/login");
 
+import onboardosLanding from "@/assets/onboardos-landing.png.asset.json";
+import onboardosTemplates from "@/assets/onboardos-templates.png.asset.json";
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 export type ProductStatus = "LIVE" | "COMING SOON" | "IN DEVELOPMENT";
 
@@ -214,17 +217,30 @@ export const products: Product[] = [
       "Easier document collection",
       "Faster, structured review",
     ],
-    showcase: [],
+    showcase: [
+      {
+        src: onboardosLanding.url,
+        alt: "The OnboardOS product site showing the headline 'Client onboarding, without the back-and-forth' and the five-step how-it-works sequence.",
+        caption: "The live product",
+        body: "OnboardOS is available now at onboard-os-seven.vercel.app — sign up and start building your first workflow.",
+      },
+      {
+        src: onboardosTemplates.url,
+        alt: "The OnboardOS template library showing starter onboarding templates with steps, stages and preview or use actions.",
+        caption: "Template library",
+        body: "Start from a ready-made onboarding workflow or create a custom template, then reuse it for every client.",
+      },
+    ],
     pricing: {
-      model: "Client-based pricing: free for your first 3 clients, Pro for unlimited",
+      model: "Free for your first 3 client onboardings, then ₹4,999 for a month of unlimited Pro access",
       plans: [
         {
           name: "Free",
           price: "₹0",
-          cadence: "/month",
-          description: "Your first 3 clients free — the complete OnboardOS experience.",
+          cadence: "",
+          description: "Your first 3 client onboarding instances are free.",
           features: [
-            "Your first 3 clients included",
+            "First 3 client onboardings included",
             "Full access to the current OnboardOS experience",
             "No feature restrictions",
             "No card required",
@@ -235,20 +251,21 @@ export const products: Product[] = [
         {
           name: "Pro",
           price: "₹4,999",
-          cadence: "/month",
-          description: "Unlimited client onboarding when you are ready to scale.",
+          cadence: " / 1 month of access",
+          description: "1 month of Pro access with unlimited client onboardings.",
           features: [
-            "Unlimited clients",
+            "Unlimited client onboardings while your Pro access is active",
             "Full access to the OnboardOS experience",
-            "Same product — no feature gates",
+            "Secure Razorpay checkout inside the app",
+            "Reactivate with payment when your access period ends",
           ],
-          cta: "Contact Us About Pro",
-          ctaTo: "/contact",
+          cta: "Start Free",
+          ctaHref: PRODUCT_SIGNUP_URL,
           highlighted: true,
-          note: "In-app payment checkout is not implemented yet. Contact us and we will set up your Pro access directly.",
+          note: "Pro is purchased inside OnboardOS after you sign up. Pro access is activated after successful payment verification.",
         },
       ],
-      note: "No feature restrictions. Upgrade only when you need to onboard more clients.",
+      note: "No feature restrictions. Move to Pro inside the app when you need to onboard more than 3 clients.",
     },
     faq: [
       {
@@ -284,12 +301,24 @@ export const products: Product[] = [
         a: "Yes. You can request changes to an individual response instead of restarting the entire onboarding process.",
       },
       {
-        q: "How many clients can I onboard for free?",
-        a: "Your first 3 clients are free, with full access to the currently available OnboardOS experience.",
+        q: "How does the free plan work?",
+        a: "Your first 3 client onboardings are free, with full access to the currently available OnboardOS experience. No card required.",
       },
       {
-        q: "What happens when I need to onboard more clients?",
-        a: "Upgrade to Pro for unlimited client onboarding at ₹4,999/month. Automated in-app checkout is not implemented yet, so contact us and we will arrange your Pro access.",
+        q: "What happens after my first 3 onboardings?",
+        a: "You move to Pro from inside the app. Pro is ₹4,999 for 1 month of access with unlimited client onboardings.",
+      },
+      {
+        q: "What does Pro include?",
+        a: "Unlimited client onboardings for 1 month of Pro access, with the same full product experience as Free.",
+      },
+      {
+        q: "How does upgrading work?",
+        a: "Sign up first, then complete secure Razorpay checkout inside OnboardOS. Pro access is activated after successful payment verification.",
+      },
+      {
+        q: "Does Pro auto-renew?",
+        a: "No. Pro is a one-month access period. When it ends, you reactivate it by completing payment again.",
       },
       {
         q: "How do I get started?",
