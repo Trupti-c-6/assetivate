@@ -204,7 +204,7 @@ function Home() {
               </CtaLink>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
-              Your first 3 client onboardings are free. Pro is ₹4,999/month for unlimited clients.
+              Your first 3 client onboardings are free. Pro is ₹4,999 for one month of unlimited onboardings.
             </p>
           </div>
           <Panel>
