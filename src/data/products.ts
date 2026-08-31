@@ -8,7 +8,7 @@ export const PRODUCT_SIGNUP_URL = productAppUrl("/signup");
 export const PRODUCT_LOGIN_URL = productAppUrl("/login");
 
 import onboardosLanding from "@/assets/onboardos-landing.png.asset.json";
-import onboardosTemplates from "@/assets/onboardos-templates.png.asset.json";
+
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 export type ProductStatus = "LIVE" | "COMING SOON" | "IN DEVELOPMENT";
