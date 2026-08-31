@@ -9,7 +9,6 @@ export const PRODUCT_LOGIN_URL = productAppUrl("/login");
 
 import onboardosLanding from "@/assets/onboardos-landing.png.asset.json";
 
-
 // ─── Types ──────────────────────────────────────────────────────────────────
 export type ProductStatus = "LIVE" | "COMING SOON" | "IN DEVELOPMENT";
 
@@ -217,6 +216,9 @@ export const products: Product[] = [
       "Easier document collection",
       "Faster, structured review",
     ],
+
+    // ─── Showcase ───────────────────────────────────────────────────────────
+    // Only the OnboardOS landing page image is kept.
     showcase: [
       {
         src: onboardosLanding.url,
@@ -224,15 +226,11 @@ export const products: Product[] = [
         caption: "The live product",
         body: "OnboardOS is available now at onboard-os-seven.vercel.app — sign up and start building your first workflow.",
       },
-      {
-        src: onboardosTemplates.url,
-        alt: "The OnboardOS template library showing starter onboarding templates with steps, stages and preview or use actions.",
-        caption: "Template library",
-        body: "Start from a ready-made onboarding workflow or create a custom template, then reuse it for every client.",
-      },
     ],
+
     pricing: {
-      model: "Free for your first 3 client onboardings, then ₹4,999 for a month of unlimited Pro access",
+      model:
+        "Free for your first 3 client onboardings, then ₹4,999 for a month of unlimited Pro access",
       plans: [
         {
           name: "Free",
@@ -267,6 +265,7 @@ export const products: Product[] = [
       ],
       note: "No feature restrictions. Move to Pro inside the app when you need to onboard more than 3 clients.",
     },
+
     faq: [
       {
         q: "What is OnboardOS?",
@@ -325,11 +324,16 @@ export const products: Product[] = [
         a: "Create your workspace using the Start Free button — it takes you straight to the real OnboardOS signup page.",
       },
     ],
-    primaryCta: { label: "Start Free", href: PRODUCT_SIGNUP_URL },
+
+    primaryCta: {
+      label: "Start Free",
+      href: PRODUCT_SIGNUP_URL,
+    },
   },
 ];
 
-export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
+export const getProduct = (slug: string) =>
+  products.find((p) => p.slug === slug);
 
 export const portfolioThemes = [
   "Workflow automation",
